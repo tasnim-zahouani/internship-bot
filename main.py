@@ -51,6 +51,10 @@ def send_to_discord(message):
     data = {"content": message}
     requests.post(DISCORD_WEBHOOK_URL, json=data)
 
+    print(f"Discord API Response Code: {response.status_code}")
+    if response.status_code != 204:
+        print(f"Discord Error Details: {response.text}")
+
 if __name__ == "__main__":
     print("Starting internship search...")
     raw_jobs = fetch_recent_jobs()
