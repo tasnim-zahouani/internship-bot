@@ -10,13 +10,17 @@ DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK"]
 def fetch_recent_jobs():
     # Example using an RSS feed (e.g., from Upwork, StackOverflow, or a custom Indeed RSS)
     # Replace with your actual data source
-    feed_url = "YOUR_JOB_BOARD_RSS_URL" 
+    feed_url = "https://weworkremotely.com/categories/remote-programming-jobs.rss" 
     feed = feedparser.parse(feed_url)
     
+    # This will show up in your GitHub logs!
+    print(f"Found {len(feed.entries)} jobs in the RSS feed.")
+
     jobs = []
     for entry in feed.entries[:15]: # Grab the latest 15 jobs
         jobs.append(f"Title: {entry.title}\nLink: {entry.link}\nDescription: {entry.description}\n---")
     return "\n".join(jobs)
+
 
 def filter_jobs_with_gemini(job_data):
     # Initialize the model
@@ -48,7 +52,15 @@ def send_to_discord(message):
     requests.post(DISCORD_WEBHOOK_URL, json=data)
 
 if __name__ == "__main__":
+    print("Starting internship search...")
     raw_jobs = fetch_recent_jobs()
+    
     if raw_jobs:
+        print("Filtering with Gemini...")
         curated_list = filter_jobs_with_gemini(raw_jobs)
+        
+        print("Sending message to Discord...")
         send_to_discord(f"🌅 **Good morning! Here is your 8 AM Internship Report:**\n\n{curated_list}")
+        print("Done!")
+    else:
+        print("No jobs found in the feed to process.")
