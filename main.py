@@ -49,8 +49,9 @@ def filter_jobs_with_gemini(job_data):
 
 def send_to_discord(message):
     data = {"content": message}
-    requests.post(DISCORD_WEBHOOK_URL, json=data)
-
+    # Fix: We added "response =" so Python saves the result!
+    response = requests.post(DISCORD_WEBHOOK_URL, json=data)
+    
     print(f"Discord API Response Code: {response.status_code}")
     if response.status_code != 204:
         print(f"Discord Error Details: {response.text}")
