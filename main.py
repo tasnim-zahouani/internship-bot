@@ -1,30 +1,24 @@
-import google.generativeai as genai
+import os
 import feedparser
 import requests
-import os
+from google import genai
 
-# 1. Setup API Keys
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+# The new SDK automatically detects the GEMINI_API_KEY environment variable!
 DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK"]
 
 def fetch_recent_jobs():
-    # Example using an RSS feed (e.g., from Upwork, StackOverflow, or a custom Indeed RSS)
-    # Replace with your actual data source
     feed_url = "https://weworkremotely.com/categories/remote-programming-jobs.rss" 
     feed = feedparser.parse(feed_url)
     
-    # This will show up in your GitHub logs!
     print(f"Found {len(feed.entries)} jobs in the RSS feed.")
-
     jobs = []
-    for entry in feed.entries[:15]: # Grab the latest 15 jobs
+    for entry in feed.entries[:15]: 
         jobs.append(f"Title: {entry.title}\nLink: {entry.link}\nDescription: {entry.description}\n---")
     return "\n".join(jobs)
 
-
 def filter_jobs_with_gemini(job_data):
-    # Initialize the model
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    # Initialize the new Gemini client
+    client = genai.Client()
     
     prompt = f"""
     You are an expert technical recruiter. Review the following job listings.
@@ -44,14 +38,19 @@ def filter_jobs_with_gemini(job_data):
     {job_data}
     """
     
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(
+        model='gemini-1.5-flash',
+        contents=prompt,
+    )
     return response.text
 
 def send_to_discord(message):
+    if len(message) > 1900:
+        message = message[:1900] + "\n\n...(truncated for Discord length limit)"
+        
     data = {"content": message}
-    # Fix: We added "response =" so Python saves the result!
     response = requests.post(DISCORD_WEBHOOK_URL, json=data)
-    
+
     print(f"Discord API Response Code: {response.status_code}")
     if response.status_code != 204:
         print(f"Discord Error Details: {response.text}")

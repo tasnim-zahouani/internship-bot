@@ -23,6 +23,7 @@ jobs:
         
       - name: Run Python Script
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: python main.py
+            PYTHONUNBUFFERED: "1"
+            GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+            DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python -u main.py
