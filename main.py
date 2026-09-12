@@ -7,7 +7,7 @@ from google import genai
 DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK"]
 
 def fetch_recent_jobs():
-    feed_url = "https://weworkremotely.com/categories/remote-programming-jobs.rss" 
+    feed_url = "https://www.google.fr/alerts/feeds/02798386233911950880/3172961757142946387" 
     feed = feedparser.parse(feed_url)
     
     print(f"Found {len(feed.entries)} jobs in the RSS feed.")
