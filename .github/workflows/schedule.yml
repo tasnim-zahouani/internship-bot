@@ -3,7 +3,7 @@ name: Daily Internship Finder
 on:
   schedule:
     # Runs at 6:00 AM UTC every day (which is 8:00 AM in France during summer time)
-    - cron: '0 6 * * *' 
+    - cron: '17 5 * * *' 
   workflow_dispatch: # This adds a button so you can trigger it manually to test it
 
 jobs:
