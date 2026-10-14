@@ -22,14 +22,15 @@ def filter_jobs_with_gemini(job_data):
     
     prompt = f"""
     You are an expert technical recruiter. Review the following job listings.
-    I am looking for a CS internship with these strict criteria:
-    - Must be a Software Engineering or Data Science role.
-    - Must use Python, Java, or C++.
-    - Must be located in France or London or Dublin or Europe.
+    I am looking for a Master 2 internship (6 months) with these strict criteria:
+    - Target roles: Backend Development, QA Automation, Data Engineering (ETL/Pipelines), CI/CD, or Software Engineering (ESN/Services).
+    - Tech stack: Must use Python, FastAPI, Java, C++, SQL, Docker, or GitHub Actions.
+    - Location: France (Priority: Paris, Lyon, Grenoble, Aix-Marseille).
+    - EXCLUDE: "Data Analyst", "Business Intelligence", "PowerBI", and roles purely focused on Frontend/React.
     
     Filter out any jobs that do not match. 
     Return a concise summary of only the matching jobs in this format:
-    [Job Title] - [Company] - [Link]
+    [Job Title] - [Company] - [Location] - [Link]
     Brief reason for match: ...
     
     If none match, reply with "No matching internships today."
