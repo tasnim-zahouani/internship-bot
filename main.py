@@ -23,10 +23,12 @@ def filter_jobs_with_gemini(job_data):
     prompt = f"""
     You are an expert technical recruiter. Review the following job listings.
     I am looking for a Master 2 internship (6 months) with these strict criteria:
-    - Target roles: Backend Development, QA Automation, Data Engineering (ETL/Pipelines), CI/CD, or Software Engineering (ESN/Services).
-    - Tech stack: Must use Python, FastAPI, Java, C++, SQL, Docker, or GitHub Actions.
-    - Location: France (Priority: Paris, Lyon, Grenoble, Aix-Marseille).
-    - EXCLUDE: "Data Analyst", "Business Intelligence", "PowerBI", and roles purely focused on Frontend/React.
+    - Target roles: Java/Spring Boot developer, fullstack Java/Angular, QA/test automation,
+      integration engineer, performance/load testing, DevOps/CI-CD, data engineering (pipelines).
+    - Stack: Java, Spring Boot, Angular, Python, SQL, Docker, Jenkins, GitLab CI/GitHub Actions, cloud (AWS/Azure/GCP).
+    - Location: Lyon, Aix-en-Provence, Marseille, Grenoble, Paris, Nancy.
+    - Priority companies: ESNs (Sopra Steria, CGI, Capgemini, Atos, SQLI, Viseo, Alteca), Orange, large industrial groups, and similar.
+    - EXCLUDE: senior roles, alternance/CDI, pure Data Analyst/BI, pure design.
     
     Filter out any jobs that do not match. 
     Return a concise summary of only the matching jobs in this format:
