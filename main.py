@@ -7,13 +7,18 @@ from google import genai
 DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK"]
 
 def fetch_recent_jobs():
-    feed_url = "https://www.google.fr/alerts/feeds/02798386233911950880/3208718861831571754" 
-    feed = feedparser.parse(feed_url)
+    feed_urls = [
+        "https://www.google.fr/alerts/feeds/02798386233911950880/3208718861831571754", 
+        "https://www.google.fr/alerts/feeds/02798386233911950880/1039722522960867841"
+    ] 
     
-    print(f"Found {len(feed.entries)} jobs in the RSS feed.")
     jobs = []
-    for entry in feed.entries[:15]: 
-        jobs.append(f"Title: {entry.title}\nLink: {entry.link}\nDescription: {entry.description}\n---")
+    for url in feed_urls:
+        feed = feedparser.parse(url)
+        print(f"Found {len(feed.entries)} jobs in the RSS feed.")
+
+        for entry in feed.entries[:15]: 
+            jobs.append(f"Title: {entry.title}\nLink: {entry.link}\nDescription: {entry.description}\n---")
     return "\n".join(jobs)
 
 def filter_jobs_with_gemini(job_data):
