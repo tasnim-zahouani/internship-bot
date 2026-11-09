@@ -1,4 +1,4 @@
-## The Internship bot 
+## The Daily Internship Report bot (DRI)
 
 This simple bot, An automated job-hunting pipeline that fetches job offers via Google Alerts RSS feeds, filters them using the Gemini AI API based on specific criteria, and sends a curated daily summary to a Discord channel using GitHub Actions.
 
