@@ -72,7 +72,7 @@ if __name__ == "__main__":
         curated_list = filter_jobs_with_gemini(raw_jobs)
         
         print("Sending message to Discord...")
-        send_to_discord(f"🌅 **Good morning! Here is your 8 AM Internship Report:**\n\n{curated_list}")
+        send_to_discord(f"🌅 **Good morning! Here is your Daily Internship Report:**\n\n{curated_list}")
         print("Done!")
     else:
         print("No jobs found in the feed to process.")
